@@ -1,0 +1,93 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .signup-form {
+        width: 360px;
+        margin: 50px auto;
+        padding: 30px 0;
+    }
+    .signup-form form {
+        color: #9e9e9e;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+        padding: 40px;
+    }
+    .signup-form h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .form-control {
+        border-radius: 25px;
+    }
+    .btn {
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+    .btn-primary {
+        background-color: #6c63ff;
+        border-color: #6c63ff;
+    }
+    .btn-primary:hover {
+        background-color: #5248cc;
+        border-color: #5248cc;
+    }
+    .form-control:focus {
+        box-shadow: none;
+    }
+</style>
+</head>
+<body>
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>{{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+
+<div class="signup-form">
+<form action="#" method="post">
+{% csrf_token %}
+    
+    <h2>Sign Up</h2>
+    <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+    </div>
+    <div class="form-group">
+        <input type="email" class="form-control" name="email" placeholder="Email Address" required="required">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+    </div>
+</form>
+</div>
+
+
+
+
+
+
+
+{% comment %} <form method="post">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="Email">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="Password">
+    <button type="submit">Sign Up</button>
+</form> {% endcomment %}
+
+

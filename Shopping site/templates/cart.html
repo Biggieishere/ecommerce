@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .price, .item-total {
+            text-align: right;
+        }
+
+        .quantity {
+            width: 50px;
+            text-align: right;
+        }
+
+        .total-container {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .total-container h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <table id="cart">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart in Carts %}
+                <tr class="item">
+                    <td>{{cart.product.name}}</td>
+                    <td class="price">{{cart.product.price}}</td>
+                    <td><input type="number" value="1" min="1" class="quantity"></td>
+                    <td class="item-total">{{cart.product.price}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="total-container">
+            <h2>Total: $<span id="total">60.00</span></h2>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function calculateTotal() {
+                let total = 0;
+                $('#cart .item').each(function() {
+                    const price = parseFloat($(this).find('.price').text().replace('$', ''));
+                    const quantity = parseInt($(this).find('.quantity').val());
+                    const itemTotal = price * quantity;
+                    $(this).find('.item-total').text(`$${itemTotal.toFixed(2)}`);
+                    total += itemTotal;
+                });
+                $('#total').text(total.toFixed(2));
+            }
+
+            calculateTotal();
+
+            $('.quantity').on('input', function() {
+                calculateTotal();
+            });
+        });
+    </script>
+</body>
+</html>
